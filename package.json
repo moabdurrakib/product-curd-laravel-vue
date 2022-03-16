@@ -23,6 +23,7 @@
         "@babel/preset-env": "^7.16.11",
         "@vue/compiler-sfc": "^3.2.31",
         "babel-loader": "^8.2.3",
+        "sweetalert2": "^11.4.4",
         "vue": "^3.2.31",
         "vue-loader": "^17.0.0",
         "vue-router": "^4.0.13"

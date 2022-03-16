@@ -1,6 +1,7 @@
-<script>
+<script  setup>
 import { ref } from "vue"
-let form = {
+import { useRouter } from "vue-router"
+let form = ref({
 
     name: '',
     description: '',
@@ -8,12 +9,14 @@ let form = {
     type: '',
     quantity: '',
     price: ''
-}
+})
+
+const  router = useRouter()
 
 const getPhoto = () =>{
     let photo = "/upload/image.png"
     if ( form.value.photo) {
-        if (form.value.indexOf('base64') != -1){
+        if (form.value.photo.indexOf('base64') != -1){
             photo = form.value.photo
         }else{
             photo = '/upload/'+form.value.photo
@@ -48,6 +51,19 @@ const saveProduct = () => {
 
     axios.post("/api/add_product/", formData)
     .then((response)=> {
+        form.value.name ='',
+        form.value.description ='',
+        form.value.photo = '',
+        form.value.type = '',
+        form.value.quantity = '',
+        form.value.price = '',
+
+        router.push('/')
+
+        toast.fire({
+            icon:"success",
+            title: "product add successfully"
+        })
 
     })
     .catch((error)=> {
@@ -68,8 +84,8 @@ const saveProduct = () => {
                 </div>
                 <div class="products__create__titlebar--item">
 
-                    <button class="btn btn-secondary ml-1"  @click="saveProduct() >
-                        Save
+                    <button class="btn btn-secondary ml-1"  @click="saveProduct()">
+                       Save
                     </button>
                 </div>
             </div>
@@ -140,4 +156,5 @@ const saveProduct = () => {
 
 
     </div>
+
 </template>

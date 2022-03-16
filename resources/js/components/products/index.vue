@@ -55,7 +55,7 @@ const ourImage = (img) => {
             </div>
 
             <!-- product 1 -->
-            <div class="table--items products__list__item" v-for="item in products" :key="item.id" v-if="products.length > 0 " >
+            <div class="table--items products__list__item" v-for="item in products" :key="item.id" v-if="products.length > 0" >
                 <div class="products__list__item--imgWrapper">
                     <img class="products__list__item--img" :src="ourImage(item.photo)"  style="height: 40px;" v-if="item.photo">
                 </div>
