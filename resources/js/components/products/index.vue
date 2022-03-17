@@ -23,6 +23,38 @@ const ourImage = (img) => {
     return  "/upload/"+img
 }
 
+const onEdit = (id) =>{
+    router.push('/product/edit/'+id)
+}
+
+const deleteProduct = (id) => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You can't go back",
+        icon: "warning",
+        showCancelButton:true,
+        showConfirmButton:true,
+        confirmButtonColor:'#3085d6',
+        cancelButtonText:'#d33',
+        confirmButtonText: "Yes, delete it!"
+    })
+    .then((result) =>{
+        if(result.value){
+        axios.get('/api/delete_product/'+id)
+        .then(()=>{
+            Swal.fire(
+                'Delete',
+                'Product delete successfully',
+                'success'
+            )
+            getProducts()
+        })
+        .catch(()=>{
+
+        })
+        }
+    })
+}
 
 </script>
 <template>
@@ -59,7 +91,7 @@ const ourImage = (img) => {
                 <div class="products__list__item--imgWrapper">
                     <img class="products__list__item--img" :src="ourImage(item.photo)"  style="height: 40px;" v-if="item.photo">
                 </div>
-                <p> class="table--items--col2">
+                <p class="table--items--col2">
                     {{ item.name}}
                 </p>
                 <p class="table--items--col2">
@@ -69,10 +101,10 @@ const ourImage = (img) => {
                     {{ item.quantity }}
                 </p>
                 <div>
-                    <button class="btn-icon btn-icon-success" >
+                    <button class="btn-icon btn-icon-success" @click="onEdit(item.id)" >
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="btn-icon btn-icon-danger" >
+                    <button class="btn-icon btn-icon-danger"   @click="deleteProduct(item.id)">
                         <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
